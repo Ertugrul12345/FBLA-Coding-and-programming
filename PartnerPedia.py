@@ -26,7 +26,6 @@ pairs = [
 
 ]
 
-
 def nltk_chatbot_response(question):
     chat = Chat(pairs, reflections)
     return chat.respond(question)
