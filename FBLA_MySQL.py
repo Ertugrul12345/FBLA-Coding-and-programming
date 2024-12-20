@@ -1,22 +1,13 @@
 import mysql.connector
 
-# Connect to MySQL server without specifying a database
 conn = mysql.connector.connect(
     host="localhost",
     user="root",
     password="password"
 )
-
-# Create a cursor object to execute SQL queries
 cursor = conn.cursor()
-
-# Create the 'testdb' database if it doesn't exist
 cursor.execute("CREATE DATABASE IF NOT EXISTS testdb")
-
-# Switch to the 'testdb' database
 conn.database = "testdb"
-
-# Create a table for companies
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS companies (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -26,8 +17,6 @@ cursor.execute('''
         business_type VARCHAR(100)
     )
 ''')
-
-# Insert data into the table
 companies_data = [
     ('Apple Inc.', '+1-800-275-2273', 'Cupertino, CA', 'Technology', 'inf'),
     ('Google LLC', '+1-650-253-0000', 'Mountain View, CA', 'Technology', 'inf'),
@@ -68,10 +57,6 @@ cursor.executemany('''
     INSERT INTO companies (name, phone_number, location, business_type, resources)
     VALUES (%s, %s, %s, %s, %s)
 ''', companies_data)
-
-
-
-# Commit the changes and close the connection
 conn.commit()
 conn.close()
 
